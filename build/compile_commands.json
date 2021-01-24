@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/brightprogrammer/Projects/CurrentWork/CurrentWork/Computerator/build",
+  "command": "/bin/g++ -DWXUSINGDLL -D__WXGTK3__ -D__WXGTK__ -isystem /usr/local/lib/wx/include/gtk3-unicode-3.1 -isystem /usr/local/include/wx-3.1  -pthread -g -Wall -O2 -g -o Computerator/CMakeFiles/computerator.dir/MainApp.cpp.o -c /home/brightprogrammer/Projects/CurrentWork/CurrentWork/Computerator/Computerator/MainApp.cpp",
+  "file": "/home/brightprogrammer/Projects/CurrentWork/CurrentWork/Computerator/Computerator/MainApp.cpp"
+},
+{
+  "directory": "/home/brightprogrammer/Projects/CurrentWork/CurrentWork/Computerator/build",
+  "command": "/bin/g++ -DWXUSINGDLL -D__WXGTK3__ -D__WXGTK__ -isystem /usr/local/lib/wx/include/gtk3-unicode-3.1 -isystem /usr/local/include/wx-3.1  -pthread -g -Wall -O2 -g -o Computerator/CMakeFiles/computerator.dir/MainFrame.cpp.o -c /home/brightprogrammer/Projects/CurrentWork/CurrentWork/Computerator/Computerator/MainFrame.cpp",
+  "file": "/home/brightprogrammer/Projects/CurrentWork/CurrentWork/Computerator/Computerator/MainFrame.cpp"
+}
+]

@@ -1,0 +1,7 @@
+/home/brightprogrammer/Projects/CurrentWork/CurrentWork/Computerator/build/CMakeFiles/rebuild_cache.dir
+/home/brightprogrammer/Projects/CurrentWork/CurrentWork/Computerator/build/CMakeFiles/edit_cache.dir
+/home/brightprogrammer/Projects/CurrentWork/CurrentWork/Computerator/build/Computerator/CMakeFiles/rebuild_cache.dir
+/home/brightprogrammer/Projects/CurrentWork/CurrentWork/Computerator/build/Computerator/CMakeFiles/edit_cache.dir
+/home/brightprogrammer/Projects/CurrentWork/CurrentWork/Computerator/build/Computerator/CMakeFiles/computerator.dir
+/home/brightprogrammer/Projects/CurrentWork/CurrentWork/Computerator/build/Resources/CMakeFiles/rebuild_cache.dir
+/home/brightprogrammer/Projects/CurrentWork/CurrentWork/Computerator/build/Resources/CMakeFiles/edit_cache.dir
