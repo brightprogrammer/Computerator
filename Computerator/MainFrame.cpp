@@ -1,8 +1,19 @@
 #include "MainFrame.hpp"
+#include "wx/event.h"
 #include "wx/gdicmn.h"
 #include "wx/gtk/textctrl.h"
 #include "wx/gtk/textentry.h"
 #include "wx/sizer.h"
+#include "wx/textctrl.h"
+#include <string>
+#include <sstream>
+
+template<typename T>
+wxString toString(T val){
+	std::stringstream ss;
+	ss<<val;
+	return ss.str();
+}
 
 enum {  BUTTON_0 = 1000,
 		BUTTON_1 = 1001,
@@ -26,8 +37,24 @@ enum {  BUTTON_0 = 1000,
 
 //event table
 wxBEGIN_EVENT_TABLE(MainFrame, wxFrame)
-//	EVT_BUTTON(PLUS_BUTTON_CLICKED_EVENT_ID, MainFrame::OnPlus)
-//	EVT_BUTTON(MINUS_BUTTON_CLICKED_EVENT_ID, MainFrame::OnMinus)
+	EVT_BUTTON(BUTTON_0, MainFrame::OnButton0)
+	EVT_BUTTON(BUTTON_00, MainFrame::OnButton00)
+	EVT_BUTTON(BUTTON_1, MainFrame::OnButton1)
+	EVT_BUTTON(BUTTON_2, MainFrame::OnButton2)
+	EVT_BUTTON(BUTTON_3, MainFrame::OnButton3)
+	EVT_BUTTON(BUTTON_4, MainFrame::OnButton4)
+	EVT_BUTTON(BUTTON_5, MainFrame::OnButton5)
+	EVT_BUTTON(BUTTON_6, MainFrame::OnButton6)
+	EVT_BUTTON(BUTTON_7, MainFrame::OnButton7)
+	EVT_BUTTON(BUTTON_8, MainFrame::OnButton8)
+	EVT_BUTTON(BUTTON_9, MainFrame::OnButton9)
+	EVT_BUTTON(BUTTON_DECM, MainFrame::OnDecm)
+	EVT_BUTTON(BUTTON_ADD, MainFrame::OnAdd)
+	EVT_BUTTON(BUTTON_SUB, MainFrame::OnSub)
+	EVT_BUTTON(BUTTON_MUL, MainFrame::OnMul)
+	EVT_BUTTON(BUTTON_DIV, MainFrame::OnDiv)
+	EVT_BUTTON(BUTTON_CLR, MainFrame::OnClr)
+	EVT_BUTTON(BUTTON_RES, MainFrame::OnRes)
 wxEND_EVENT_TABLE()
 
 MainFrame::MainFrame() : wxFrame(nullptr, wxID_ANY, "Computerator"){
@@ -35,7 +62,7 @@ MainFrame::MainFrame() : wxFrame(nullptr, wxID_ANY, "Computerator"){
 	pTopPanel = new wxPanel(this, wxID_ANY);
 	//add TopPanel to TopBoxSizer with proportion = 1 and make it expand on frame resize
 	//also add 0px border to all sides
-	pTopBoxSizer->Add(pTopPanel, 0, wxEXPAND | wxALL, 1);
+	pTopBoxSizer->Add(pTopPanel, 1, wxEXPAND | wxALL, 1);
 	//add the TopBoxSizer to this
 	this->SetSizer(pTopBoxSizer);
 
@@ -46,7 +73,9 @@ MainFrame::MainFrame() : wxFrame(nullptr, wxID_ANY, "Computerator"){
 	// pTopPanel->SetMinSize(wxSize(200, 300));
 
 	//text control for entering operations
-	pTextCtrl = new wxTextCtrl(pTopPanel, wxID_ANY);
+	pTextCtrl = new wxTextCtrl(pTopPanel, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, wxTE_READONLY | wxTE_RIGHT);
+	pTextCtrl->Bind(wxEVT_KEY_DOWN, &MainFrame::OnKeypad, this); //this wont work in event table
+	pTextCtrl->SetFocus();
 	//horizontal sizer for TextControl
 	pTextCtrlSizer = new wxBoxSizer(wxHORIZONTAL);
 	pTextCtrlSizer->Add(pTextCtrl, 1, wxRIGHT | wxLEFT | wxTOP, 10);
@@ -104,18 +133,211 @@ MainFrame::MainFrame() : wxFrame(nullptr, wxID_ANY, "Computerator"){
 	pKeypadSizer->Add(pRightKeypadSizer, 1, wxEXPAND);
 
 	//add KeypadSizer to SubBoxSizer
-	pSubBoxSizer->Add(pKeypadSizer);
+	pSubBoxSizer->Add(pKeypadSizer, 1, wxEXPAND);
 	this->SetMinSize(pSubBoxSizer->GetMinSize());
 	this->SetSize(pSubBoxSizer->GetSize());
-	
+
 	Centre();
 }
 
-void MainFrame::OnPlus(wxCommandEvent &event){
+void MainFrame::OnAdd(wxCommandEvent &event){
+	currentOperand = RIGHT_OPERAND;
+	currentOperation = ADD;
+	pTextCtrl->SetFocus();
 }
 
-void MainFrame::OnMinus(wxCommandEvent &event){
+void MainFrame::OnSub(wxCommandEvent &event){
+	currentOperand = RIGHT_OPERAND;
+	currentOperation = SUB;
+	pTextCtrl->SetFocus();
 }
 
-void MainFrame::UpdateLabel(){
+void MainFrame::OnMul(wxCommandEvent &event){
+	currentOperand = RIGHT_OPERAND;
+	currentOperation = MUL;
+	pTextCtrl->SetFocus();
+}
+
+void MainFrame::OnDiv(wxCommandEvent &event){
+	currentOperand = RIGHT_OPERAND;
+	currentOperation = DIV;
+	pTextCtrl->SetFocus();
+}
+
+void MainFrame::OnButton0(wxCommandEvent &event){
+	if(currentOperand == LEFT_OPERAND){
+		leftOp.push_back('0');
+	}else{
+		rightOp.push_back('0');
+	}
+	UpdateRes();
+}
+
+void MainFrame::OnButton1(wxCommandEvent &event){
+	if(currentOperand == LEFT_OPERAND){
+		leftOp.push_back('1');
+	}else{
+		rightOp.push_back('1');
+	}
+	UpdateRes();
+}
+
+void MainFrame::OnButton2(wxCommandEvent &event){
+	if(currentOperand == LEFT_OPERAND){
+		leftOp.push_back('2');
+	}else{
+		rightOp.push_back('2');
+	}
+	UpdateRes();
+}
+
+void MainFrame::OnButton3(wxCommandEvent &event){
+	if(currentOperand == LEFT_OPERAND){
+		leftOp.push_back('3');
+	}else{
+		rightOp.push_back('3');
+	}
+	UpdateRes();
+}
+
+void MainFrame::OnButton4(wxCommandEvent &event){
+	if(currentOperand == LEFT_OPERAND){
+		leftOp.push_back('4');
+	}else{
+		rightOp.push_back('4');
+	}
+	UpdateRes();
+}
+
+void MainFrame::OnButton5(wxCommandEvent &event){
+	if(currentOperand == LEFT_OPERAND){
+		leftOp.push_back('5');
+	}else{
+		rightOp.push_back('5');
+	}
+	UpdateRes();
+}
+
+void MainFrame::OnButton6(wxCommandEvent &event){
+	if(currentOperand == LEFT_OPERAND){
+		leftOp.push_back('6');
+	}else{
+		rightOp.push_back('6');
+	}
+	UpdateRes();
+}
+
+void MainFrame::OnButton7(wxCommandEvent &event){
+	if(currentOperand == LEFT_OPERAND){
+		leftOp.push_back('7');
+	}else{
+		rightOp.push_back('7');
+	}
+	UpdateRes();
+}
+
+void MainFrame::OnButton8(wxCommandEvent &event){
+	if(currentOperand == LEFT_OPERAND){
+		leftOp.push_back('8');
+	}else{
+		rightOp.push_back('8');
+	}
+	UpdateRes();
+}
+
+void MainFrame::OnButton9(wxCommandEvent &event){
+	if(currentOperand == LEFT_OPERAND){
+		leftOp.push_back('9');
+	}else{
+		rightOp.push_back('9');
+	}
+	UpdateRes();
+}
+
+void MainFrame::OnButton00(wxCommandEvent &event){
+	if(currentOperand == LEFT_OPERAND){
+		leftOp.push_back('0');
+		leftOp.push_back('0');
+	}else{
+		rightOp.push_back('0');
+		rightOp.push_back('0');
+	}
+	UpdateRes();
+}
+
+void MainFrame::OnDecm(wxCommandEvent &event){
+	if(currentOperand == LEFT_OPERAND){
+		leftOp += ".";
+	}else{
+		rightOp += ".";
+	}
+	UpdateRes();
+}
+
+void MainFrame::OnRes(wxCommandEvent &event){
+	if(currentOperand == RIGHT_OPERAND){
+		if(currentOperation == ADD){
+			result = stod(leftOp) + stod(rightOp);
+		}else if(currentOperation == SUB){
+			result = stod(leftOp) - stod(rightOp);
+		}else if(currentOperation == MUL){
+			result = stod(leftOp) * stod(rightOp);
+		}else{
+			result = stod(leftOp) / stod(rightOp);
+		}
+		pTextCtrl->Clear();
+		pTextCtrl->AppendText(toString(result));
+
+		//reset operand and update the result as leftOp
+		currentOperand = LEFT_OPERAND;
+		leftOp = toString(result);
+		rightOp.clear();
+	}
+	pTextCtrl->SetFocus();
+}
+
+void MainFrame::OnClr(wxCommandEvent &event){
+	leftOp.clear();
+	rightOp.clear();
+	result = 0;
+	pTextCtrl->Clear();
+	pTextCtrl->SetFocus();
+}
+
+void MainFrame::UpdateRes(){
+	if(currentOperand == LEFT_OPERAND){
+		pTextCtrl->Clear();
+		pTextCtrl->AppendText(toString(leftOp));
+	}else{
+		pTextCtrl->Clear();
+		pTextCtrl->AppendText(toString(rightOp));
+	}
+	pTextCtrl->SetFocus();
+}
+
+void MainFrame::OnKeypad(wxKeyEvent &event){
+	event.Skip(); //skip if we werent able to process the evt
+
+	if(event.GetKeyCode() == WXK_NUMPAD0) OnButton0(e);
+	else if(event.GetKeyCode() == WXK_NUMPAD1) OnButton1(e);
+	else if(event.GetKeyCode() == WXK_NUMPAD2) OnButton2(e);
+	else if(event.GetKeyCode() == WXK_NUMPAD3) OnButton3(e);
+	else if(event.GetKeyCode() == WXK_NUMPAD4) OnButton4(e);
+	else if(event.GetKeyCode() == WXK_NUMPAD5) OnButton5(e);
+	else if(event.GetKeyCode() == WXK_NUMPAD6) OnButton6(e);
+	else if(event.GetKeyCode() == WXK_NUMPAD7) OnButton7(e);
+	else if(event.GetKeyCode() == WXK_NUMPAD8) OnButton8(e);
+	else if(event.GetKeyCode() == WXK_NUMPAD9) OnButton9(e);
+	else if(event.GetKeyCode() == WXK_NUMPAD_ADD) OnAdd(e);	
+	else if(event.GetKeyCode() == WXK_NUMPAD_SUBTRACT) OnSub(e);
+	else if(event.GetKeyCode() == WXK_NUMPAD_MULTIPLY) OnMul(e);
+	else if(event.GetKeyCode() == WXK_NUMPAD_DIVIDE) OnDiv(e);
+	else if(event.GetKeyCode() == WXK_NUMPAD_DECIMAL) OnDecm(e);
+	else if(event.GetKeyCode() == WXK_NUMPAD_ENTER || event.GetKeyCode() == WXK_RETURN) OnRes(e);
+	else if(event.GetKeyCode() == WXK_BACK){
+		if(!leftOp.size())std::cout<<"pagal hai kya?"<<std::endl;
+		if(currentOperand == LEFT_OPERAND && leftOp.size()) leftOp.pop_back();
+		else if(rightOp.size()) rightOp.pop_back();
+		UpdateRes();
+	}
 }
