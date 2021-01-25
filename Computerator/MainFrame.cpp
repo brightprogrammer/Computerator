@@ -335,7 +335,6 @@ void MainFrame::OnKeypad(wxKeyEvent &event){
 	else if(event.GetKeyCode() == WXK_NUMPAD_DECIMAL) OnDecm(e);
 	else if(event.GetKeyCode() == WXK_NUMPAD_ENTER || event.GetKeyCode() == WXK_RETURN) OnRes(e);
 	else if(event.GetKeyCode() == WXK_BACK){
-		if(!leftOp.size())std::cout<<"pagal hai kya?"<<std::endl;
 		if(currentOperand == LEFT_OPERAND && leftOp.size()) leftOp.pop_back();
 		else if(rightOp.size()) rightOp.pop_back();
 		UpdateRes();
