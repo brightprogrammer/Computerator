@@ -4,7 +4,8 @@
 
 ##### Below is a screenshot of working calculator 
 ![Screenshot](Resources/screenshot.png)
-![Screenshot](Resources/screenshot_light.png)
+![Screenshot_Light](Resources/screenshot_light.png)
+
 The look may not be same everywhere as wxWidgets likes native widgets but it will look good on almost all platforms!
 
 Feel free to use it anywhere.
